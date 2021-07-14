@@ -205,23 +205,24 @@ class _HomePageState extends State<HomePage> {
                       width: 20,
                     ),
                     Expanded(
-                      child: TextField(controller: tipController,
-                    onEditingComplete: () {
-                      setState(() {
-                        if (personController.text.isNotEmpty) {
-                          tip = int.parse(personController.text) / 100;
-                        } else {
-                          tip = 0;
-                        }
-                        //to dismiss the keyboard after editing
-                        FocusScope.of(context).unfocus();
-                        calculate();
-                      });
-                    },
-                    keyboardType: TextInputType.numberWithOptions(),
-                    decoration: InputDecoration(filled: true, fillColor: Color(0xFFF3F8F8), border: InputBorder.none, hintText: 'CUSTOM'),
-                    textAlign: TextAlign.end,
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 32, color: Color(0xFF00474B))),
+                      child: TextField(
+                          controller: tipController,
+                          onEditingComplete: () {
+                            setState(() {
+                              if (personController.text.isNotEmpty) {
+                                tip = int.parse(personController.text) / 100;
+                              } else {
+                                tip = 0;
+                              }
+                              //to dismiss the keyboard after editing
+                              FocusScope.of(context).unfocus();
+                              calculate();
+                            });
+                          },
+                          keyboardType: TextInputType.numberWithOptions(),
+                          decoration: InputDecoration(filled: true, fillColor: Color(0xFFF3F8F8), border: InputBorder.none, hintText: 'CUSTOM'),
+                          textAlign: TextAlign.end,
+                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 32, color: Color(0xFF00474B))),
                     ),
                   ]),
                   SizedBox(
@@ -296,7 +297,17 @@ class _HomePageState extends State<HomePage> {
                           width: double.infinity,
                           height: 60,
                           child: FlatButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              setState(() {
+                                tip = 0;
+                                bill = 0;
+                                person = 1;
+                                calculate();
+                                tipController.clear();
+                                billController.clear();
+                                personController.clear();
+                              });
+                            },
                             child: Text(
                               'RESET',
                               style: TextStyle(
